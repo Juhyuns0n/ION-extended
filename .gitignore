@@ -1,0 +1,79 @@
+############################
+# OS - macOS
+############################
+.DS_Store
+.AppleDouble
+.LSOverride
+
+############################
+# OS - Windows
+############################
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+############################
+# OS - Common temp
+############################
+*.swp
+*.swo
+*~
+
+############################
+# Logs
+############################
+*.log
+logs/
+*.pid
+
+############################
+# Secrets / Env 
+############################
+.env
+.env.*
+*.pem
+*.p12
+*.jks
+*.keystore
+secrets.*
+
+# Spring / Backend config 
+**/application-*.yml
+**/application-*.properties
+
+############################
+# IDE 
+############################
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.code-workspace
+
+############################
+# Common build artifacts
+############################
+**/build/
+**/out/
+**/dist/
+**/.gradle/
+
+############################
+# Android 
+############################
+**/local.properties
+**/captures/
+**/*.apk
+**/*.aab
+
+############################
+# Python / AI 
+############################
+**/__pycache__/
+**/*.py[cod]
+**/.venv/
+**/venv/
+**/.pytest_cache/
+**/.ipynb_checkpoints/
