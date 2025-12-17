@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Ion</string>
+
+    <!-- bottom bar-->
+    <string name="ic_home_desc">홈</string>
+    <string name="ic_voice_desc">보이스리포트</string>
+    <string name="ic_workbook_desc">워크북</string>
+    <string name="ic_chatbot_desc">챗봇</string>
+
+    <string name="union_icon">Union Icon</string>
+
+ 
+</resources>
