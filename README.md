@@ -36,4 +36,6 @@ capstone<br>
 - MySQL 8.x<br><br>
   
 <BACK-END BULID & RUN TEST>
-- Gradle 빌드 -> http://localhost:8080로 실행<br>
+```bash<br>
+./gradlew build<br>
+./gradlew bootRun<br>
