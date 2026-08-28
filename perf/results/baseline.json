@@ -1,0 +1,144 @@
+{
+  "phase": "baseline",
+  "benchmark_kind": "single-client raw SQL including result transfer",
+  "datasets": [
+    {
+      "phase": "baseline",
+      "dataset": "10k",
+      "database": "ion_perf_10k",
+      "mysql_version": "8.4.7",
+      "rows": 9996,
+      "users": 357,
+      "chapters_per_user": 7,
+      "lessons_per_chapter": 4,
+      "seed": "ion-workbook-perf-v1 / 20260828",
+      "warmup_iterations_per_workload": 500,
+      "measured_iterations_per_workload": 5000,
+      "composite_index_present": false,
+      "workloads": [
+        {
+          "name": "lessons_projection",
+          "samples": 5000,
+          "mean_ms": 0.071508,
+          "p50_ms": 0.067,
+          "p95_ms": 0.086,
+          "p99_ms": 0.201,
+          "ops_per_second": 13933.321,
+          "rows_returned": 20000
+        },
+        {
+          "name": "exact_workbook",
+          "samples": 5000,
+          "mean_ms": 0.093535,
+          "p50_ms": 0.091,
+          "p95_ms": 0.105,
+          "p99_ms": 0.128,
+          "ops_per_second": 10662.254,
+          "rows_returned": 5000
+        },
+        {
+          "name": "first_lesson",
+          "samples": 5000,
+          "mean_ms": 0.093911,
+          "p50_ms": 0.092,
+          "p95_ms": 0.103,
+          "p99_ms": 0.121,
+          "ops_per_second": 10619.68,
+          "rows_returned": 5000
+        }
+      ]
+    },
+    {
+      "phase": "baseline",
+      "dataset": "100k",
+      "database": "ion_perf_100k",
+      "mysql_version": "8.4.7",
+      "rows": 99988,
+      "users": 3571,
+      "chapters_per_user": 7,
+      "lessons_per_chapter": 4,
+      "seed": "ion-workbook-perf-v1 / 20260828",
+      "warmup_iterations_per_workload": 500,
+      "measured_iterations_per_workload": 5000,
+      "composite_index_present": false,
+      "workloads": [
+        {
+          "name": "lessons_projection",
+          "samples": 5000,
+          "mean_ms": 0.187761,
+          "p50_ms": 0.08,
+          "p95_ms": 0.573,
+          "p99_ms": 0.709,
+          "ops_per_second": 5319.392,
+          "rows_returned": 20000
+        },
+        {
+          "name": "exact_workbook",
+          "samples": 5000,
+          "mean_ms": 0.108866,
+          "p50_ms": 0.093,
+          "p95_ms": 0.255,
+          "p99_ms": 0.411,
+          "ops_per_second": 9166.491,
+          "rows_returned": 5000
+        },
+        {
+          "name": "first_lesson",
+          "samples": 5000,
+          "mean_ms": 0.100781,
+          "p50_ms": 0.095,
+          "p95_ms": 0.114,
+          "p99_ms": 0.284,
+          "ops_per_second": 9900.382,
+          "rows_returned": 5000
+        }
+      ]
+    },
+    {
+      "phase": "baseline",
+      "dataset": "500k",
+      "database": "ion_perf_500k",
+      "mysql_version": "8.4.7",
+      "rows": 499996,
+      "users": 17857,
+      "chapters_per_user": 7,
+      "lessons_per_chapter": 4,
+      "seed": "ion-workbook-perf-v1 / 20260828",
+      "warmup_iterations_per_workload": 500,
+      "measured_iterations_per_workload": 5000,
+      "composite_index_present": false,
+      "workloads": [
+        {
+          "name": "lessons_projection",
+          "samples": 5000,
+          "mean_ms": 0.184395,
+          "p50_ms": 0.09,
+          "p95_ms": 0.585,
+          "p99_ms": 0.695,
+          "ops_per_second": 5416.167,
+          "rows_returned": 20000
+        },
+        {
+          "name": "exact_workbook",
+          "samples": 5000,
+          "mean_ms": 0.161749,
+          "p50_ms": 0.115,
+          "p95_ms": 0.569,
+          "p99_ms": 0.66,
+          "ops_per_second": 6173.434,
+          "rows_returned": 5000
+        },
+        {
+          "name": "first_lesson",
+          "samples": 5000,
+          "mean_ms": 0.143624,
+          "p50_ms": 0.118,
+          "p95_ms": 0.405,
+          "p99_ms": 0.619,
+          "ops_per_second": 6951.434,
+          "rows_returned": 5000
+        }
+      ]
+    }
+  ]
+}

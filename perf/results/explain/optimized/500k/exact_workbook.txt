@@ -1,0 +1,10 @@
+QUERY
+SELECT * FROM workbook WHERE user_id = 8929 AND chapter_id = 4 AND lesson_id = 2
+
+EXPLAIN
+id	select_type	table	partitions	type	possible_keys	key	key_len	ref	rows	filtered	Extra
+1	SIMPLE	workbook	NULL	ref	idx_workbook_user,idx_workbook_user_chapter_lesson	idx_workbook_user_chapter_lesson	12	const,const,const	1	100.00	NULL
+
+EXPLAIN ANALYZE
+EXPLAIN
+-> Index lookup on workbook using idx_workbook_user_chapter_lesson (user_id=8929, chapter_id=4, lesson_id=2)  (cost=0.864 rows=1) (actual time=0.00533..0.00617 rows=1 loops=1)

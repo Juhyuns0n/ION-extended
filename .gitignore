@@ -77,3 +77,19 @@ secrets.*
 **/venv/
 **/.pytest_cache/
 **/.ipynb_checkpoints/
+
+############################
+# Local performance runtime
+############################
+perf/.runtime/
+
+# Performance benchmark: keep raw JSON and representative 500K plans only
+perf/ASSESSMENT.md
+perf/sql/drop_composite_index.sql
+perf/results/*.csv
+perf/results/comparison.json
+perf/results/jpa_comparison.json
+perf/results/explain/baseline/10k/
+perf/results/explain/baseline/100k/
+perf/results/explain/optimized/10k/
+perf/results/explain/optimized/100k/

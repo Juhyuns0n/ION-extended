@@ -1,0 +1,13 @@
+{
+  "phase": "baseline",
+  "benchmark_kind": "Spring Data JPA repository calls",
+  "dataset": "500k",
+  "users": 17857,
+  "warmup_iterations_per_workload": 200,
+  "measured_iterations_per_workload": 1000,
+  "workloads": [
+    {"name": "findLessons", "mean_ms": 0.466345, "p50_ms": 0.428375, "p95_ms": 0.741334, "p99_ms": 1.031083},
+    {"name": "findByUserIdAndChapterIdAndLessonId", "mean_ms": 0.564822, "p50_ms": 0.520459, "p95_ms": 0.831375, "p99_ms": 1.049000},
+    {"name": "findTopByUserIdAndChapterIdOrderByLessonIdAsc", "mean_ms": 0.364740, "p50_ms": 0.320916, "p95_ms": 0.627000, "p99_ms": 0.984167}
+  ]
+}

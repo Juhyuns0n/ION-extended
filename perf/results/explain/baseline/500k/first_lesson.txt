@@ -1,0 +1,13 @@
+QUERY
+SELECT * FROM workbook WHERE user_id = 8929 AND chapter_id = 4 ORDER BY lesson_id ASC LIMIT 1
+
+EXPLAIN
+id	select_type	table	partitions	type	possible_keys	key	key_len	ref	rows	filtered	Extra
+1	SIMPLE	workbook	NULL	ref	idx_workbook_user	idx_workbook_user	4	const	28	10.00	Using where; Using filesort
+
+EXPLAIN ANALYZE
+EXPLAIN
+-> Limit: 1 row(s)  (cost=20.6 rows=1) (actual time=0.048..0.048 rows=1 loops=1)
+    -> Sort: workbook.lesson_id, limit input to 1 row(s) per chunk  (cost=20.6 rows=28) (actual time=0.0479..0.0479 rows=1 loops=1)
+        -> Filter: (workbook.chapter_id = 4)  (cost=20.6 rows=28) (actual time=0.0219..0.0432 rows=4 loops=1)
+            -> Index lookup on workbook using idx_workbook_user (user_id=8929)  (cost=20.6 rows=28) (actual time=0.00437..0.042 rows=28 loops=1)
