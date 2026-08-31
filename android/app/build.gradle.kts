@@ -34,7 +34,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "BASE_URL", "\"http://3.38.149.207:8080/\"")
+        val backendBaseUrl = properties.getProperty("backend.base.url", "http://10.0.2.2:8080/")
+        buildConfigField("String", "BASE_URL", "\"$backendBaseUrl\"")
 
         val kakaoNativeAppKey = properties["kakao.native.app.key"].toString()
 
@@ -69,6 +70,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -81,6 +85,8 @@ dependencies {
     implementation(libs.foundation.layout)
     // Test
     testImplementation(libs.junit)
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.test)
 

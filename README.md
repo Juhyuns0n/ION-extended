@@ -43,6 +43,12 @@ flowchart LR
     Android[Android client] -->|REST/JSON and multipart uploads| Backend[Spring Boot backend]
     Backend -->|Spring Data JPA / Hibernate| MySQL[(MySQL)]
     Backend -->|HTTP via WebClient| AI[FastAPI AI services]
+    Backend -->|Voice media| S3[(Amazon S3)]
+    Backend -->|Voice job reference| SQS[Amazon SQS]
+    SQS --> Worker[Voice Report worker]
+    Worker --> S3
+    Worker --> AI
+    Worker --> MySQL
     AI -->|Profile and reference data| MySQL
     AI -->|Model requests| OpenAI[OpenAI API]
 ```
@@ -98,6 +104,8 @@ After the team project, I independently studied the backend's Spring Data JPA an
 
 This was a reconstructed local benchmark, not a production-database measurement. See the [performance study](perf/README.md) for methodology, detailed results, execution plans, and limitations.
 
+The repository also includes an independent [asynchronous Voice Report extension](docs/async-voice-pipeline.md): original media is stored in S3, a minimal SQS message triggers the existing analysis path, persisted job state supports Android polling, and stale processing leases provide recovery for at-least-once delivery. Its deterministic local benchmark measures request acceptance decoupling, not faster AI inference or production AWS latency.
+
 ## Project Context
 
 I:ON began as a team capstone project. I contributed to application architecture, AWS deployment design, cross-component integration, and Android development.
@@ -110,3 +118,4 @@ The `team-project-final` tag marks the end of the original team-project state. T
 - [Backend](backend/README.md)
 - [AI services](ai/README.md)
 - [Performance study](perf/README.md)
+- [Asynchronous Voice Report pipeline](docs/async-voice-pipeline.md)

@@ -29,6 +29,7 @@ tasks.withType<JavaCompile> {
 }
 
 dependencies {
+	implementation(platform("software.amazon.awssdk:bom:2.49.6"))
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -37,6 +38,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("org.apache.commons:commons-csv:1.11.0")
 	implementation ("com.fasterxml.jackson.core:jackson-databind")
+	implementation("software.amazon.awssdk:s3")
+	implementation("software.amazon.awssdk:sqs")
 
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("com.mysql:mysql-connector-j")

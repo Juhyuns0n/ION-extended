@@ -4,6 +4,8 @@ import com.ion.app.data.dto.response.voicereport.RecentVoiceSummaryDto
 import retrofit2.http.Query
 import com.ion.app.data.dto.response.voicereport.VoiceReportListResponseDto
 import com.ion.app.data.dto.response.voicereport.VoiceReportResponseDto
+import com.ion.app.data.dto.response.voicereport.VoiceReportJobStatusDto
+import com.ion.app.data.dto.response.voicereport.VoiceReportSubmissionDto
 import okhttp3.MultipartBody
 import retrofit2.http.GET
 import retrofit2.http.Multipart
@@ -14,9 +16,14 @@ import retrofit2.http.Path
 interface VoiceReportService {
     @Multipart
     @POST("api/voice-reports")
-    suspend fun uploadVoiceReport(
+    suspend fun submitVoiceReport(
         @Part video: MultipartBody.Part
-    ): VoiceReportResponseDto
+    ): VoiceReportSubmissionDto
+
+    @GET("/api/voice-reports/{id}/status")
+    suspend fun getVoiceReportStatus(
+        @Path("id") id: Long
+    ): VoiceReportJobStatusDto
 
     @GET("/api/voice-reports/list")
     suspend fun getVoiceReports(

@@ -5,8 +5,8 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://ion-database-rds.czmtnxk070k4.ap-northeast-2.rds.amazonaws.com:3306/ion?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
-    username: admin
+    url: ${DB_URL:jdbc:mysql://localhost:3306/ion?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:ion}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
@@ -58,23 +58,34 @@ media:
   convert:
     timeoutSec: 120
 
+voice-report:
+  async:
+    region: ${VOICE_REPORT_AWS_REGION:ap-northeast-2}
+    bucket: ${VOICE_REPORT_S3_BUCKET:}
+    queue-url: ${VOICE_REPORT_SQS_QUEUE_URL:}
+    consumer-enabled: ${VOICE_REPORT_CONSUMER_ENABLED:false}
+    poll-interval-ms: ${VOICE_REPORT_POLL_INTERVAL_MS:1000}
+    wait-time-seconds: ${VOICE_REPORT_SQS_WAIT_TIME_SECONDS:10}
+    visibility-timeout-seconds: ${VOICE_REPORT_SQS_VISIBILITY_TIMEOUT_SECONDS:900}
+    processing-lease-seconds: ${VOICE_REPORT_PROCESSING_LEASE_SECONDS:900}
+
 analysis:
   python:
-    baseUrl: http://10.0.1.91:9095
+    baseUrl: ${VOICE_REPORT_AI_BASE_URL:http://localhost:9095}
     connectTimeoutMs: 50000
     readTimeoutMs: 5000000
 
 workbook:
   python:
-    base-url-create: http://10.0.1.91:9096       # Workbook + Simulation 생성 서버
-    base-url-feedback: http://10.0.1.91:9098    # Workbook Feedback + Simulation Feedback 서버
+    base-url-create: ${WORKBOOK_AI_BASE_URL:http://localhost:9096}
+    base-url-feedback: ${WORKBOOK_FEEDBACK_AI_BASE_URL:http://localhost:9098}
     connect-timeout-ms: 50000
     read-timeout-ms: 600000
 
 
 chatbot:
   python:
-    base-url: http://10.0.1.91:9097
+    base-url: ${CHATBOT_AI_BASE_URL:http://localhost:9097}
     connect-timeout-ms: 5000
     read-timeout-ms: 600000
 
@@ -92,4 +103,3 @@ management:
       show-details: always
       probes:
         enabled: true
-

@@ -19,7 +19,7 @@ public class PythonAnalysisClient {
 
     private final @Qualifier("pythonAnalyzerWebClient") WebClient pythonAnalyzerWebClient;
 
-    public VoiceReportResponse analyze(byte[] wavBytes, int userId) {
+    public VoiceReportResponse analyze(byte[] wavBytes, int userId, int reportId) {
         MultiValueMap<String, Object> form = new LinkedMultiValueMap<>();
         ByteArrayResource fileRes = new ByteArrayResource(wavBytes) {
             @Override
@@ -32,7 +32,7 @@ public class PythonAnalysisClient {
         fileHeaders.setContentType(MediaType.parseMediaType("audio/wav"));
 
         form.add("audio", new HttpEntity<>(fileRes, fileHeaders));
-        form.add("reportId", 100);
+        form.add("reportId", reportId);
 
         try {
             return pythonAnalyzerWebClient.post()

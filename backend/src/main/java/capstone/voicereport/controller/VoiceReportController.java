@@ -1,9 +1,6 @@
 package capstone.voicereport.controller;
 
-import capstone.voicereport.dto.PagedListResponse;
-import capstone.voicereport.dto.VoiceReportListResponse;
-import capstone.voicereport.dto.VoiceReportResponse;
-import capstone.voicereport.dto.VoiceReportSummaryDto;
+import capstone.voicereport.dto.*;
 import capstone.voicereport.error.VoiceReportException;
 import capstone.voicereport.service.VoiceReportService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,7 +27,7 @@ public class VoiceReportController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<VoiceReportResponse> create(
+    public ResponseEntity<VoiceReportSubmissionResponse> create(
             @RequestPart("video") MultipartFile video,
             HttpSession session,
             HttpServletRequest request
@@ -39,9 +36,19 @@ public class VoiceReportController {
         if (sessionId == null) throw VoiceReportException.loginRequired();
         if (video == null || video.isEmpty()) throw VoiceReportException.payloadEmpty();
 
-        VoiceReportResponse resp = voiceReportService.createVoiceReportFromVideo(sessionId, video);
-        URI location = URI.create(request.getRequestURI() + "/" + resp.getReportId());
-        return ResponseEntity.created(location).body(resp);
+        VoiceReportSubmissionResponse response = voiceReportService.submit(sessionId, video);
+        URI location = URI.create(request.getRequestURI() + "/" + response.reportId() + "/status");
+        return ResponseEntity.accepted().location(location).body(response);
+    }
+
+    @GetMapping("/{reportId}/status")
+    public ResponseEntity<VoiceReportJobResponse> status(
+            @PathVariable int reportId,
+            HttpSession session
+    ) {
+        Integer sessionId = (Integer) session.getAttribute("userId");
+        if (sessionId == null) throw VoiceReportException.loginRequired();
+        return ResponseEntity.ok(voiceReportService.getStatus(sessionId, reportId));
     }
 
     // 보이스리포트 단건 조회

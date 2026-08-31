@@ -35,9 +35,11 @@ Spring Data JPA repositories and Hibernate map the application entities to MySQL
 
 ## Configuration
 
-The committed configuration contains no literal database password. `application.yml` references `${DB_PASSWORD}`, which must be supplied by the runtime environment. Spring configuration can also be overridden externally for the datasource URL, datasource username, AI-service base URLs, service timeouts, upload location, and ffmpeg path.
+Backend settings are supplied through environment variables, including database
+connection values and AI-service base URLs.
 
-Do not commit local credentials or environment-specific override files. Relevant local overrides are already covered by the repository ignore rules.
+`DB_PASSWORD` must be provided when using a database, while the remaining values can
+be overridden for the target environment.
 
 ## Running Locally
 
@@ -70,8 +72,17 @@ The original hosted database and AI endpoints are not assumed to remain availabl
 
 The [Workbook query performance study](../perf/README.md) is an independent post-project extension. It evaluates the actual `WorkbookRepository` query shapes against deterministic, reconstructed local MySQL datasets and compares the baseline index with a workload-aligned composite index. It is not a production RDS benchmark.
 
+## Asynchronous Voice Reports
+
+The post-project Voice Report extension returns `202 Accepted` after persisting a `PENDING` job, storing original media in private S3 storage, and publishing `{reportId, mediaObjectKey}` to a standard SQS queue. A worker reuses the existing ffmpeg and Python analysis path, persists `PROCESSING`/`COMPLETED`/`FAILED`, and Android polls the status endpoint.
+
+Apply `src/main/resources/db/voice_report_async_migration.sql` explicitly before use because Hibernate DDL is disabled. Configure `VOICE_REPORT_S3_BUCKET`, `VOICE_REPORT_SQS_QUEUE_URL`, and optionally the region, visibility timeout, and processing lease through the environment. Set `VOICE_REPORT_CONSUMER_ENABLED=true` only for an instance intended to poll the queue. AWS credentials are resolved through the SDK default provider chain and must remain outside Git.
+
+See the [pipeline design, delivery semantics, benchmark, and limitations](../docs/async-voice-pipeline.md).
+
 ## Related Documentation
 
 - [Project overview](../README.md)
 - [Android client](../android/README.md)
 - [AI services](../ai/README.md)
+- [Asynchronous Voice Report pipeline](../docs/async-voice-pipeline.md)

@@ -1,0 +1,138 @@
+{
+  "experiment": "mixed-workload isolation",
+  "server": {
+    "type": "embedded Tomcat via SpringBootTest RANDOM_PORT",
+    "java_version": "21.0.4",
+    "available_processors": 12,
+    "http_request_threads": 10,
+    "tomcat_accept_count": 200,
+    "tomcat_max_connections": 200,
+    "async_worker_threads": 10
+  },
+  "voice_workload": {
+    "downstream_delay_ms": 2000,
+    "concurrency_levels": [50, 100]
+  },
+  "warmup": {
+    "runs_per_condition": 1,
+    "probe_requests": 20,
+    "voice_concurrency": 10
+  },
+  "probe_workload": {
+    "endpoint": "GET /api/workbooks/chapter",
+    "repository": "deterministic mock",
+    "requests_per_condition": 100,
+    "release_interval_ms": 50,
+    "offered_rate_rps": 20.0,
+    "common_start_with_voice": true
+  },
+  "external_services_used": [],
+  "probe_only": {
+    "requests": 100,
+    "successful_responses": 100,
+    "failures_or_timeouts": 0,
+    "p50_ms": 5.87,
+    "p95_ms": 8.109,
+    "max_ms": 9.159,
+    "response_window_ms": 4954.393,
+    "response_throughput_rps": 20.184
+  },
+  "mixed_conditions": [
+    {
+      "voice_mode": "synchronous",
+      "voice_concurrency": 50,
+      "probe": {
+        "requests": 100,
+        "successful_responses": 100,
+        "failures_or_timeouts": 0,
+        "p50_ms": 7525.678,
+        "p95_ms": 9756.828,
+        "max_ms": 10011.999,
+        "response_window_ms": 10090.73,
+        "response_throughput_rps": 9.91
+      },
+      "voice": {
+        "submissions": 50,
+        "accepted_or_successful": 50,
+        "request_failures": 0,
+        "eventually_completed": 50,
+        "failed_jobs": 0,
+        "total_completion_ms": 10090.758,
+        "peak_async_worker_queue_depth": null,
+        "peak_synchronous_voice_requests_holding_tomcat_threads": 10
+      }
+    },
+    {
+      "voice_mode": "asynchronous",
+      "voice_concurrency": 50,
+      "probe": {
+        "requests": 100,
+        "successful_responses": 100,
+        "failures_or_timeouts": 0,
+        "p50_ms": 4.15,
+        "p95_ms": 7.062,
+        "max_ms": 8.287,
+        "response_window_ms": 4957.118,
+        "response_throughput_rps": 20.173
+      },
+      "voice": {
+        "submissions": 50,
+        "accepted_or_successful": 50,
+        "request_failures": 0,
+        "eventually_completed": 50,
+        "failed_jobs": 0,
+        "total_completion_ms": 10032.221,
+        "peak_async_worker_queue_depth": 40,
+        "peak_synchronous_voice_requests_holding_tomcat_threads": null
+      }
+    },
+    {
+      "voice_mode": "synchronous",
+      "voice_concurrency": 100,
+      "probe": {
+        "requests": 100,
+        "successful_responses": 100,
+        "failures_or_timeouts": 0,
+        "p50_ms": 17546.655,
+        "p95_ms": 19788.943,
+        "max_ms": 20038.991,
+        "response_window_ms": 20111.421,
+        "response_throughput_rps": 4.972
+      },
+      "voice": {
+        "submissions": 100,
+        "accepted_or_successful": 100,
+        "request_failures": 0,
+        "eventually_completed": 100,
+        "failed_jobs": 0,
+        "total_completion_ms": 20111.433,
+        "peak_async_worker_queue_depth": null,
+        "peak_synchronous_voice_requests_holding_tomcat_threads": 10
+      }
+    },
+    {
+      "voice_mode": "asynchronous",
+      "voice_concurrency": 100,
+      "probe": {
+        "requests": 100,
+        "successful_responses": 100,
+        "failures_or_timeouts": 0,
+        "p50_ms": 4.073,
+        "p95_ms": 5.725,
+        "max_ms": 11.725,
+        "response_window_ms": 4957.459,
+        "response_throughput_rps": 20.172
+      },
+      "voice": {
+        "submissions": 100,
+        "accepted_or_successful": 100,
+        "request_failures": 0,
+        "eventually_completed": 100,
+        "failed_jobs": 0,
+        "total_completion_ms": 20047.813,
+        "peak_async_worker_queue_depth": 90,
+        "peak_synchronous_voice_requests_holding_tomcat_threads": null
+      }
+    }
+  ]
+}

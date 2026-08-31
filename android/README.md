@@ -63,9 +63,13 @@ The project targets Android API 35 and supports API 28 and later.
 
 ## Local Configuration
 
-`android/local.properties` is intentionally excluded from Git. Android Studio normally creates it with the local SDK path; the build also expects local values used for Kakao integration and external application links. Keep all local values out of commits.
+Android Studio creates `android/local.properties` for machine-specific settings
+such as the local SDK path. The app also reads a few local configuration values
+from this file, including the backend base URL and third-party integration keys.
 
-The backend base URL is supplied through `BuildConfig` in the app module. A working local build must point it at an available backend instance; the original demonstration server is not assumed to be online.
+`backend.base.url` is exposed through `BuildConfig` and defaults to
+`http://10.0.2.2:8080/` for the Android emulator. Override it when running
+against a backend on another host or device.
 
 ## Build
 

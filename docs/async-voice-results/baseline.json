@@ -1,0 +1,38 @@
+{
+  "phase": "baseline",
+  "benchmark_kind": "Spring MockMvc synchronous HTTP boundary",
+  "simulated_downstream_delay_ms": 2000,
+  "warmup_batches": 1,
+  "measured_batches": 3,
+  "external_services": "none",
+  "interpretation": "HTTP response remains coupled to downstream processing duration",
+  "results": [
+    {
+      "concurrency": 1,
+      "requests": 3,
+      "successes": 3,
+      "failures": 0,
+      "http_response_p50_ms": 2006.945,
+      "http_response_p95_ms": 2009.268,
+      "measured_batches_completion_ms": 6022.196
+    },
+    {
+      "concurrency": 10,
+      "requests": 30,
+      "successes": 30,
+      "failures": 0,
+      "http_response_p50_ms": 2006.733,
+      "http_response_p95_ms": 2010.779,
+      "measured_batches_completion_ms": 6046.06
+    },
+    {
+      "concurrency": 50,
+      "requests": 150,
+      "successes": 150,
+      "failures": 0,
+      "http_response_p50_ms": 2006.807,
+      "http_response_p95_ms": 2009.465,
+      "measured_batches_completion_ms": 6047.903
+    }
+  ]
+}

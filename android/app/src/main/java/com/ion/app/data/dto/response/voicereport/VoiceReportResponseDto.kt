@@ -4,6 +4,28 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+data class VoiceReportSubmissionDto(
+    @SerialName("reportId") val reportId: Long,
+    @SerialName("status") val status: VoiceReportJobStatus
+)
+
+@Serializable
+data class VoiceReportJobStatusDto(
+    @SerialName("reportId") val reportId: Long,
+    @SerialName("status") val status: VoiceReportJobStatus,
+    @SerialName("report") val report: VoiceReportResponseDto? = null,
+    @SerialName("errorMessage") val errorMessage: String? = null
+)
+
+@Serializable
+enum class VoiceReportJobStatus {
+    PENDING,
+    PROCESSING,
+    COMPLETED,
+    FAILED
+}
+
+@Serializable
 data class VoiceReportListResponseDto(
     @SerialName("content") val content: List<VoiceReportListItemDto>,
     @SerialName("totalPages") val totalPages: Int,
@@ -74,4 +96,3 @@ data class RecentVoiceSummaryDto(
     @SerialName("kidFrequency") val kidFrequency: Int,
     @SerialName("overallFeedback") val overallFeedback: String
 )
-

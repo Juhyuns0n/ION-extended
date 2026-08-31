@@ -6,7 +6,10 @@ import com.ion.app.data.mapper.voicereport.toDomainList
 import com.ion.app.data.mapper.voicereport.toDomain
 import com.ion.app.domain.model.voicereport.RecentVoiceSummaryModel
 import com.ion.app.domain.model.voicereport.VoiceReportListItemModel
+import com.ion.app.domain.model.voicereport.VoiceReportJobModel
+import com.ion.app.domain.model.voicereport.VoiceReportJobStatus
 import com.ion.app.domain.model.voicereport.VoiceReportModel
+import com.ion.app.domain.model.voicereport.VoiceReportSubmissionModel
 import com.ion.app.domain.repository.voicereport.VoiceReportRepository
 import okhttp3.MultipartBody
 import javax.inject.Inject
@@ -15,12 +18,23 @@ class VoiceReportRepositoryImpl @Inject constructor(
     private val remoteDataSource: VoiceReportRemoteDataSource
 ) : VoiceReportRepository {
 
-    override suspend fun uploadVoiceReport(audioFile: MultipartBody.Part): Result<VoiceReportModel> =
+    override suspend fun submitVoiceReport(mediaFile: MultipartBody.Part): Result<VoiceReportSubmissionModel> =
         runCatching {
-            val response = remoteDataSource.uploadVoiceReport(audioFile)
-            response.toDomain()
+            val response = remoteDataSource.submitVoiceReport(mediaFile)
+            VoiceReportSubmissionModel(response.reportId, VoiceReportJobStatus.valueOf(response.status.name))
         }.onFailure { e ->
             Log.e("VoiceReportRepo", "Upload failed", e)
+        }
+
+    override suspend fun getVoiceReportStatus(id: Long): Result<VoiceReportJobModel> =
+        runCatching {
+            val response = remoteDataSource.getVoiceReportStatus(id)
+            VoiceReportJobModel(
+                reportId = response.reportId,
+                status = VoiceReportJobStatus.valueOf(response.status.name),
+                report = response.report?.toDomain(),
+                errorMessage = response.errorMessage
+            )
         }
 
     override suspend fun getVoiceReports(): Result<List<VoiceReportListItemModel>> =

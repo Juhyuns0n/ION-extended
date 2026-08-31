@@ -1,5 +1,6 @@
 package capstone.voicereport.entity;
 
+import capstone.voicereport.async.VoiceReportStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -70,6 +71,27 @@ public class VoiceReport {
 
     @Column(name = "strength", length = 1000)
     private String strength;
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    @Column(name = "processing_status", nullable = false, length = 20)
+    private VoiceReportStatus processingStatus = VoiceReportStatus.COMPLETED;
+
+    @Column(name = "media_object_key", length = 512)
+    private String mediaObjectKey;
+
+    @Column(name = "failure_reason", length = 1000)
+    private String failureReason;
+
+    @Column(name = "processing_started_at")
+    private LocalDateTime processingStartedAt;
+
+    @Column(name = "completed_at")
+    private LocalDateTime completedAt;
+
+    @Version
+    @Column(name = "version", nullable = false)
+    private long version;
 
     // 정렬용
     @CreationTimestamp

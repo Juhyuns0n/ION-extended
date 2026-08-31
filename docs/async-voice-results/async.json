@@ -1,0 +1,40 @@
+{
+  "phase" : "async",
+  "benchmark_kind" : "Spring MockMvc async acceptance boundary with in-memory fake worker",
+  "simulated_downstream_delay_ms" : 2000,
+  "warmup_batches" : 1,
+  "measured_batches" : 3,
+  "external_services" : "none",
+  "interpretation" : "HTTP request acceptance is decoupled from downstream processing duration",
+  "results" : [ {
+    "concurrency" : 1,
+    "requests" : 3,
+    "accepted" : 3,
+    "acceptance_failures" : 0,
+    "acceptance_p50_ms" : 5.676,
+    "acceptance_p95_ms" : 6.157,
+    "eventually_completed" : 3,
+    "processing_failures" : 0,
+    "measured_batches_completion_ms" : 6022.651
+  }, {
+    "concurrency" : 10,
+    "requests" : 30,
+    "accepted" : 30,
+    "acceptance_failures" : 0,
+    "acceptance_p50_ms" : 7.939,
+    "acceptance_p95_ms" : 9.564,
+    "eventually_completed" : 30,
+    "processing_failures" : 0,
+    "measured_batches_completion_ms" : 6048.458
+  }, {
+    "concurrency" : 50,
+    "requests" : 150,
+    "accepted" : 150,
+    "acceptance_failures" : 0,
+    "acceptance_p50_ms" : 3.951,
+    "acceptance_p95_ms" : 8.343,
+    "eventually_completed" : 150,
+    "processing_failures" : 0,
+    "measured_batches_completion_ms" : 6066.097
+  } ]
+}
