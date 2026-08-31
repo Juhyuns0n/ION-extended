@@ -34,7 +34,7 @@ Onboarding, the parenting-style questionnaire, home summaries, progress, rewards
 
 ## Demo
 
-The original team-project flow is available in the public [demo video](https://github.com/Juhyuns0n/ION/releases/tag/demo).
+A demo of the original team project is available in the public [demo video](https://github.com/Juhyuns0n/ION/releases/tag/demo).
 
 ## Architecture
 
@@ -53,7 +53,7 @@ flowchart LR
     AI -->|Model requests| OpenAI[OpenAI API]
 ```
 
-The Android client calls backend REST endpoints through Retrofit and OkHttp. The backend owns application request handling and persistence, and delegates workbook generation, workbook feedback, chatbot responses, and voice analysis to separate Python services. These outbound service clients have explicit connection and response-timeout configuration.
+The Android client calls backend REST endpoints through Retrofit and OkHttp. The backend owns application request handling and persistence, and delegates workbook generation, workbook feedback, chatbot responses, and voice analysis to separate Python services. 
 
 ## System Components
 
@@ -74,7 +74,8 @@ The Android client calls backend REST endpoints through Retrofit and OkHttp. The
 - **Backend:** Java 21, Spring Boot 3, Spring Data JPA, Hibernate, Spring WebClient
 - **Data:** MySQL
 - **AI:** Python, FastAPI, OpenAI API, PyMySQL, sentence-transformers, NumPy
-- **Tooling:** Gradle, MySQL 8, shell/Python benchmark automation, C MySQL client benchmark runner
+- **Build & Tooling:** Gradle
+- **Performance Study:** MySQL 8, shell/Python automation, C MySQL client benchmark runner
 
 ## Getting Started
 
